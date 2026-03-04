@@ -1,0 +1,22 @@
+{
+  "name": "aut_validacion_intereses",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:ci": "npm run cypress:run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^15.8.1",
+    "cypress-mochawesome-reporter": "^4.0.2"
+  },
+  "dependencies": {
+    "moment": "^2.30.1"
+  }
+}

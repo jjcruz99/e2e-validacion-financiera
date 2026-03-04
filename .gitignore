@@ -1,0 +1,20 @@
+# --- Dependencias ---
+node_modules/
+
+# --- Variables de Entorno y Datos Sensibles ---
+cypress.env.json
+.env
+cypress.env
+
+# --- Artefactos de Cypress (Archivos generados por las pruebas) ---
+cypress/reports/       
+
+# --- Logs de NPM/Node ---
+npm-debug.log
+npm-debug.log.*
+yarn-error.log
+yarn-debug.log*
+
+# --- Configuraciones del Editor / SO ---
+.vscode/
+
