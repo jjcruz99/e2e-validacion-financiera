@@ -9,11 +9,15 @@ class HistoricoPages{
 
     }
 
-    buscarTransaccionPorFecha(transaccion,fecha){
+    limpiarHistorial() {
+        this.transaccionesEncontradas = [];
+        cy.log('🧹 Historial de transacciones reiniciado');
+    }
 
+    buscarTransaccionPorFecha(transaccion,fecha){
+        
         cy.get(this.selectores.tabla).then( ($tbody) => {
 
-            
             const filas = $tbody.find('tr');
             const anioMes = fecha.slice(0,7);
 
@@ -31,7 +35,8 @@ class HistoricoPages{
                             fecha2 : columnaDeLaFila.eq(3).text().trim(),
                             codigoTransaccion : transaccionActual,
                             valorTransaccion : columnaDeLaFila.eq(5).text().trim(),
-                            tasaInteres : columnaDeLaFila.eq(6).text().trim()
+                            tasaInteres : columnaDeLaFila.eq(6).text().trim(),
+                            cuotas : columnaDeLaFila.eq(7).text().trim()
                         });
 
                         //cy.screenshot(`historicos/movimiento${transaccionActual}_${i}`, {capture:"fullPage"});

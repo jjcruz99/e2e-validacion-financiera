@@ -16,17 +16,15 @@ Cypress.Commands.add("ingresarATC", () => {
             .callsFake((url) => { win.location.assign(url) });
         });
 
-        //Ingresar a TC
         cy.get('div[onclick="openTC();"]').click();
 
-        // Valida que estoy a la página esperada
         cy.location('pathname').should('include', '/AdminWeb/templates/indexBody.jsf');
         // Verifica que se intentó abrir
         cy.get('@winOpen').should('have.been.called');
 });
 
 Cypress.Commands.add("salirDeTC", () =>{
-                //Salir de la sesion
+        
         cy.get('#j_idt28 > div.ui-inputswitch-on.ui-state-active > span')
                 .click();
 });

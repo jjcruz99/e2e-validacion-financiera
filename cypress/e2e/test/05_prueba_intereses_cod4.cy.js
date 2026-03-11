@@ -12,7 +12,7 @@ describe('Validacion de intereses provisionales codigo 4', () => {
 
     it('Validar los intereses codigo 4 para una tarjeta con edad de mora alta', () =>{
 
-        cy.iniciarSesion(Cypress.env('user_admin'), Cypress.env('pass_admin'));
+        cy.iniciarSesion(Cypress.env('user_7'), Cypress.env('pass_7'));
 
         cy.ingresarATC();
 

@@ -9,8 +9,8 @@ Cypress.Commands.add('buscarProductosPorId', (identificacion) => {
     // FUERZA BRUTA DE ARQUITECTURA: 
     cy.get('@header')
         .next('div.ui-panelmenu-content')
-        .invoke('removeClass', 'ui-helper-hidden') // Quita la clase de "oculto"
-        .invoke('attr', 'style', 'display: block') // Forzar que se vea
+        .invoke('removeClass', 'ui-helper-hidden') 
+        .invoke('attr', 'style', 'display: block') 
         .should('be.visible')
         .as('panelMenu');
 
@@ -45,16 +45,15 @@ Cypress.Commands.add('buscarPorProducto', (BIN,producto) => {
 
     //Quitar clase que oculta los submenus
     cy.get('@moduloPrincipal')
-        .next()
+        .next('div.ui-panelmenu-content')
         .invoke('removeClass', 'ui-helper-hidden')
         .invoke('attr', 'style', 'display: block') 
         .should('be.visible')
         .as('subMenu');
 
     cy.get('@subMenu',{ timeout: 10000 })
-        .find('li[id*=_1]')
+        .contains('span', 'MODULO DE CONSULTAS')
         .should('be.visible')
-        .contains('a','MODULO DE CONSULTAS') 
         .click();
 
         cy.wait(1000);

@@ -1,7 +1,7 @@
 Cypress.Commands.add('visualizarProductoPorBIN', (bin) => {
   cy.get('tr.ui-widget-content')
     .contains('td', bin)
-    .closest('tr') // Una alternativa a .parent() más segura
+    .closest('tr') 
     .find('button[title="Visualizar"]')
     .click();
 });
