@@ -16,8 +16,8 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
 
         cy.ingresarATC();
 
-        const BIN = Cypress.env('tarjeta_visa1').slice(0,8);
-        const tarjeta = Cypress.env('tarjeta_visa1').slice(8);
+        const BIN = Cypress.env('tarjeta_visa3').slice(0,8);
+        const tarjeta = Cypress.env('tarjeta_visa3').slice(8);
 
         cy.buscarPorProducto(BIN,tarjeta);
 
@@ -32,10 +32,10 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
 
             menuNavTC.irVentanaFacturaciones();
             facturacionesPages.limpiartdatos();
-            facturacionesPages.obtenerTotalDiferidos(interes.fecha);
+            facturacionesPages.buscarFacturacion(calculadora.restarUnMesFecha(interes.fecha));
         });
 
-
+        cy.salirDeTC();
 
     });
 
