@@ -8,9 +8,8 @@ class FacturacionesPages{
             filasTabalaModal: "tr.ui-widget-content",
             etiquetaModal: "td.etiqueta",
             numeroModal: "td.numero",
-            cerraTablaModal:""
+            btnCerrarModal: 'div[id*="modalVisualizarSaldos"] a.ui-dialog-titlebar-close'
         };
-
         this.dataEncontrada=[];
     }
 
@@ -24,7 +23,8 @@ class FacturacionesPages{
     buscarFacturacion(fechaFacturacion){
 
         const fecha = fechaFacturacion.slice(0,7);
-       
+        cy.log(`Fecha de facturacion a buscar ${fecha}`);
+
         cy.get(this.selectores.tabla).then( ($tbody) => {
 
             const filas = $tbody.find('tr');
@@ -66,6 +66,10 @@ class FacturacionesPages{
                     });
 
                     cy.log(`📂 Capturado: ${etiqueta} = ${valor}`);
+
+                    cy.get(this.selectores.btnCerrarModal)
+                        .click({ force: true });
+                    
                 }
             });
 

@@ -167,7 +167,7 @@ describe('Validar calculo de los intereses sobre avances codigo 1 ', () =>{
         cy.salirDeTC();
 
         cy.once('test:after:run', (test) => {
-            cy.addTestContext( { test }, `screenshots/${Cypress.spec.name}/codigos_intereses/Codigo_1.png`);
+            cy.addTestContext( { test }, `screenshots/${Cypress.spec.name}/codigos_intereses/Codigo_4.png`);
         });
     });
 

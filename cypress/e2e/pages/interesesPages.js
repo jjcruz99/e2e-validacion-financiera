@@ -9,14 +9,23 @@ class InteresesPages {
                 nextBtn: 'a[aria-label="Next Page"]',
                 nextIcon: 'span',
                 nextCon: 'N'
-            }
+            }, 
+            organizadorTable:{
+                cabecera: 'th',
+                titulo:'span',
+                contenido:'Fecha de Facturación'
+            }         
         };
         this.datosEncontrados = null;
     }
 
 
     buscarCodigoDeInteres(codigoEspecifico) {
-    
+        
+       cy.get(this.selectores.organizadorTable.cabecera)
+            .contains(this.selectores.organizadorTable.titulo,this.selectores.organizadorTable.contenido)
+            .click();
+
         cy.get(this.selectores.tabla).then(($tbody) => {
             
             let encontrado = false;

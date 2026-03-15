@@ -1,8 +1,11 @@
 
 Cypress.Commands.add("iniciarSesion", (user,password) =>{
         cy.get('input[name="form-logeo:login-username"]').type(user);
+
         cy.get('input[name="form-logeo:login-password"]').clear().type(password);
+
         cy.get('span[class="ui-button-text ui-c"]').click();
+        
         cy.contains('TARJETA CRÉDITO')
                 .should('be.visible');
 });

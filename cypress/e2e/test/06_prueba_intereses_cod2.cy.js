@@ -35,6 +35,9 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             facturacionesPages.buscarFacturacion(calculadora.restarUnMesFecha(interes.fecha));
         });
 
+        menuNavTC.irVentanaMovimientos();
+        
+        cy.wait(2000);
         cy.salirDeTC();
 
     });
