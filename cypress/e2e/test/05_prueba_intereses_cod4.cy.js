@@ -50,7 +50,7 @@ describe('Validacion de intereses provisionales codigo 4', () => {
                 let valorWeb = calculadora.limpiarDatosNumericos(intereses.valor);
                 let diferencia = valorCalculado - valorWeb;
 
-                cy.addTestContext(`Valor de los calculos intereses provisionales: ${valorCalculado}`);
+                cy.addTestContext(`Facturacion: ${intereses.fecha} | Valor Web: ${valorWeb} | Calculado: ${valorCalculado} | Dif: ${diferencia}`);
 
                     cy.log('--- 🧮 VALIDACIÓN COD4 ---');
                     cy.log(`✔ Valor web: ${valorWeb}`);

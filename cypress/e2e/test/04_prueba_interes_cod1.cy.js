@@ -2,7 +2,7 @@
 import { menuNavTC } from "../pages/menuNavTC";
 import { interesesPage } from "../pages/interesesPages";   
 import { historicoPage } from "../pages/historicoPages"; 
-import { movimientosPages } from "../pages/movimientosPages";
+import { movimientosPage } from "../pages/movimientosPages";
 import { calculadora } from '../../support/utils/calculadoraDeIntereses';
 
 describe('Validar calculo de los intereses sobre avances codigo 1 ', () =>{
@@ -47,13 +47,13 @@ describe('Validar calculo de los intereses sobre avances codigo 1 ', () =>{
                 menuNavTC.irVentanaMovimientos();
                 cy.get('@interes').then((interes) => {
                     validacionMovimientos = true;
-                    movimientosPages.limpiarMovimientos();
-                    movimientosPages.obtenerTransaccionesPorFecha('97',interes.fecha);
+                    movimientosPage.limpiarMovimientos();
+                    movimientosPage.obtenerTransaccionPorFecha('97',interes.fecha);
                 });
             }
         });
         cy.then( () => {
-            cy.wrap(movimientosPages.datosEncontrados).as('movimientos');
+            cy.wrap(movimientosPage.datosEncontrados).as('movimientos');
         });
 
 
@@ -129,13 +129,13 @@ describe('Validar calculo de los intereses sobre avances codigo 1 ', () =>{
                 menuNavTC.irVentanaMovimientos();
                 cy.get('@interes_web').then((interes) => {
                     validacionMovimientos = true;
-                    movimientosPages.limpiarMovimientos();
-                    movimientosPages.obtenerTransaccionesPorFecha('97',interes.fecha);
+                    movimientosPage.limpiarMovimientos();
+                    movimientosPage.obtenerTransaccionPorFecha('97',interes.fecha);
                 });
             }
         });
         cy.then( () => {
-            cy.wrap(movimientosPages.datosEncontrados).as('movimientos')
+            cy.wrap(movimientosPage.datosEncontrados).as('movimientos')
         });
 
         //Todo Validar los intereses web vs los calculos

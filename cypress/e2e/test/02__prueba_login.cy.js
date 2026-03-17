@@ -47,7 +47,7 @@ describe('Validar login', () => {
 
     });
 
-    it('Validar usuario ivalido', () => {
+    it('Validar usuario invalido', () => {
         cy.get('input[name="form-logeo:login-username"]').clear().type(Cypress.env('user_12').slice(0,3));
         cy.get('input[name="form-logeo:login-password"]').clear().type(Cypress.env('pass_12'));
         cy.get('span.ui-button-text.ui-c').contains('Ingresar').click(); 

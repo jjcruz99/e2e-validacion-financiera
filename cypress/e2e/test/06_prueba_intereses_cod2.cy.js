@@ -1,7 +1,8 @@
 import {menuNavTC} from "../pages/menuNavTC";
 import {interesesPage} from "../pages/interesesPages";
 import {historicoPage} from "../pages/historicoPages";
-import { facturacionesPages } from "../pages/facturacionesPages";
+import {movimientosPage} from "../pages/movimientosPages"
+import { facturacionesPage } from "../pages/facturacionesPages";
 import { calculadora } from "../../support/utils/calculadoraDeIntereses";
 
 describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
@@ -31,13 +32,15 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.log(`Valor de los intereses encontrados : ${interes.valor} en ${interes.fecha}`);
 
             menuNavTC.irVentanaFacturaciones();
-            facturacionesPages.limpiartdatos();
-            facturacionesPages.buscarFacturacion(calculadora.restarUnMesFecha(interes.fecha));
+            facturacionesPage.limpiartdatos();
+            facturacionesPage.buscarFacturacion(calculadora.restarUnMesFecha(interes.fecha));
         });
 
         menuNavTC.irVentanaMovimientos();
+
+        movimientosPage.obtenerTransacciones(['97','96']);
         
-        cy.wait(2000);
+        cy.wait(1000);
         cy.salirDeTC();
 
     });

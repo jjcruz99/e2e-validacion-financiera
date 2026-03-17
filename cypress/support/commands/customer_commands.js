@@ -56,14 +56,14 @@ Cypress.Commands.add('buscarPorProducto', (BIN,producto) => {
         .should('be.visible')
         .click();
 
-        cy.wait(1000);
+        //cy.wait(1000);
 
     cy.get('@subMenu',{ timeout : 5000})
         .contains('10. CONSULTA POR PRODUCTO Y CREDITO')
         .should('be.visible')
         .click();
 
-        cy.wait(1000);
+        //cy.wait(1000);
 
     cy.get('label[id="crmaeConsultaBinTarjeta:idBin_label"]', { timeout : 5000})
         .contains('Seleccione...')

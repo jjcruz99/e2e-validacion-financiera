@@ -39,7 +39,6 @@ class HistoricoPages{
                             cuotas : columnaDeLaFila.eq(7).text().trim()
                         });
 
-                        //cy.screenshot(`historicos/movimiento${transaccionActual}_${i}`, {capture:"fullPage"});
                     }
             });
 
@@ -55,6 +54,10 @@ class HistoricoPages{
 
         });
 
+    }
+
+    obtenerTransacciones(transaccionesABuscar){
+        cy.log(transaccionesABuscar);
     }
 
 }

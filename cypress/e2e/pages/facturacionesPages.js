@@ -78,4 +78,4 @@ class FacturacionesPages{
 
 }
 
-export const facturacionesPages = new FacturacionesPages();
+export const facturacionesPage = new FacturacionesPages();

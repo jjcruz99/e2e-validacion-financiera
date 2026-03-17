@@ -13,7 +13,7 @@ class MovimientosPages{
         cy.log('🧹 Movimientos de transacciones reiniciado');
     }
 
-    obtenerTransaccionesPorFecha(transaccion,fecha){
+    obtenerTransaccionPorFecha(transaccion,fecha){
         cy.get(this.selectores.tabla).then( ($tbody) =>{
             
             const filas = $tbody.find('tr');
@@ -51,10 +51,10 @@ class MovimientosPages{
 
     }
 
-    obtenerTransacciones(transacciones){
-        cy.log(transacciones)
+    obtenerTransacciones(transaccionesABuscar){
+        cy.log(transaccionesABuscar)
     }
 
 }
 
-export const movimientosPages = new MovimientosPages();
+export const movimientosPage = new MovimientosPages();
