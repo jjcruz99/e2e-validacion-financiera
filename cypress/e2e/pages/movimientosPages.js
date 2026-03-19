@@ -13,6 +13,7 @@ class MovimientosPages{
         cy.log('🧹 Movimientos de transacciones reiniciado');
     }
 
+
     obtenerTransaccionPorFecha(transaccion,fecha){
         cy.get(this.selectores.tabla).then( ($tbody) =>{
             
@@ -41,7 +42,7 @@ class MovimientosPages{
             cy.avanzarRegistrostabla().then( (validacionAvanzar) => {
 
                 if(validacionAvanzar){
-                    this.obtenerTransaccionesPorFecha(transaccion,fecha);
+                    this.obtenerTransaccionPorFecha(transaccion,fecha);
                 }
                 else{
                     cy.log(`🚫 No existen mas registros para avanzar`);
@@ -50,6 +51,7 @@ class MovimientosPages{
         });
 
     }
+    
 
     obtenerTransacciones(transaccionesABuscar){
         cy.log(transaccionesABuscar)

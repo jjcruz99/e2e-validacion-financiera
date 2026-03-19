@@ -42,6 +42,17 @@ class FacturacionesPages{
                     return false;
                 }
             });
+
+            cy.avanzarRegistrostabla().then( (validacionAvanzar) => {
+
+                if(validacionAvanzar){
+                    this.buscarFacturacion(fechaFacturacion);
+                }
+                else{
+                    cy.log(`🚫 No existen mas registros para avanzar`);
+                }
+            });
+
         });
 
     }

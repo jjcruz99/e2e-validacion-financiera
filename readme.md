@@ -31,6 +31,9 @@ aut_validacion_intereses/
 │   │   |    ├── 03_prueba_consultar_cliente.cy.js
 │   │   |    ├── 04_prueba_interes_cod1.cy.js
 │   │   |    └── 05_prueba_intereses_cod4.cy.js
+│   │   |    └── 06_prueba_intereses_cod2.cy.js
+│   │   |    └── codigos_interes
+│   │   |    └── login
 │   │   |
 │   │   └── index.html  
 │   │

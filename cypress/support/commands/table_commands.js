@@ -20,7 +20,7 @@ Cypress.Commands.add('avanzarRegistrostabla', ()  => {
         // acciones asíncronas
         cy.wrap($btn)
           .contains(paginador.nextIcon,paginador.nextCon)
-          .click();
+          .click({force:true});
           
         cy.log('Avanzamos a la siguiente página');
 

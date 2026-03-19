@@ -13,6 +13,7 @@ class HistoricoPages{
         this.transaccionesEncontradas = [];
         cy.log('🧹 Historial de transacciones reiniciado');
     }
+    
 
     buscarTransaccionPorFecha(transaccion,fecha){
         
@@ -55,6 +56,7 @@ class HistoricoPages{
         });
 
     }
+
 
     obtenerTransacciones(transaccionesABuscar){
         cy.log(transaccionesABuscar);
