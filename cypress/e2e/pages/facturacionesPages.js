@@ -8,7 +8,16 @@ class FacturacionesPages{
             filasTabalaModal: "tr.ui-widget-content",
             etiquetaModal: "td.etiqueta",
             numeroModal: "td.numero",
-            btnCerrarModal: 'div[id*="modalVisualizarSaldos"] a.ui-dialog-titlebar-close'
+            btnCerrarModal: 'div[id*="modalVisualizarSaldos"] a.ui-dialog-titlebar-close',
+            organizadorTable:{
+                cabecera: 'th[id*=idTablaSaldosMesAnt]',
+                titulo:'span',
+                contenido:'Fecha de Facturación'
+            },
+            paginador:{
+                contenedorPaginador : 'div[id*="idTablaSaldosMesAnt_paginator_bottom"]',
+                btnSiguiente : 'a.ui-paginator-next'
+            }
         };
         this.dataEncontrada=[];
     }
@@ -19,13 +28,12 @@ class FacturacionesPages{
     }
 
 
-
     buscarFacturacion(fechaFacturacion){
 
         const fecha = fechaFacturacion.slice(0,7);
-        cy.log(`Fecha de facturacion a buscar ${fecha}`);
+        cy.log(`🔎Fecha de facturacion a buscar ${fecha}`);
 
-        cy.get(this.selectores.tabla).then( ($tbody) => {
+        cy.get(this.selectores.tabla, {timeout:10000}).then( ($tbody) => {
 
             const filas = $tbody.find('tr');
     
@@ -38,13 +46,13 @@ class FacturacionesPages{
 
                     //* Envolver la fila (tr) para usar comandos de Cypress
                     cy.wrap(tr).find(this.selectores.visualizar).click();
+                    cy.log(`Fecha encontrada: ${fechaActual}`);
                     this.extraerDiferidos();
                     return false;
                 }
             });
 
-            cy.avanzarRegistrostabla().then( (validacionAvanzar) => {
-
+            this.desplazarTabla().then( (validacionAvanzar) => {
                 if(validacionAvanzar){
                     this.buscarFacturacion(fechaFacturacion);
                 }
@@ -57,6 +65,32 @@ class FacturacionesPages{
 
     }
 
+    organizarTabla(){
+        cy.get(this.selectores.organizadorTable.cabecera)
+            .contains(this.selectores.organizadorTable.titulo,this.selectores.organizadorTable.contenido)
+            .click();
+
+        cy.wait(2000);
+    }
+
+    desplazarTabla(){
+        
+        return cy.get(this.selectores.paginador.contenedorPaginador).find(this.selectores.paginador.btnSiguiente).then(($btn) => {
+            
+            if ($btn.hasClass('ui-state-disabled')) {
+                cy.log('🚫 Se alcanzó la última página de facturaciones');
+                return cy.wrap(false);   
+            } 
+            else {
+                    
+                cy.wrap($btn).click({ force: true });            
+                cy.log('➡️ Avanzando a la siguiente página...');
+                cy.wait(1000); 
+
+                return cy.wrap(true);    
+            }
+        });
+    }
 
     extraerDiferidos(){
 
@@ -80,7 +114,7 @@ class FacturacionesPages{
 
                     cy.get(this.selectores.btnCerrarModal)
                         .click({ force: true });
-                    
+                   
                 }
             });
 
