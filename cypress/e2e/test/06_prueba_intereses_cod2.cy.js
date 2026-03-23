@@ -13,7 +13,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
 
     it('Validar los intereses sobre los diferidos para una tarjeta en mora', () => {
 
-        cy.iniciarSesion(Cypress.env('user_7') , Cypress.env('pass_7'));
+        cy.iniciarSesion(Cypress.env('user_admin') , Cypress.env('pass_admin'));
 
         cy.ingresarATC();
 
@@ -37,8 +37,32 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
         });
 
         menuNavTC.irVentanaMovimientos();
+        //cy.wait(2000);
+        movimientosPage.limpiarMovimientos();
+        movimientosPage.obtenerTransacciones();
 
-        movimientosPage.obtenerTransacciones(['97','96']);
+        cy.then( () => {
+            cy.wrap(movimientosPage.datosEncontrados).as('movimientos');
+        });
+
+        //* Validar las transacciones en los  historicos  si no las encontro en los movimientos
+        let validacionHistoricos = false;
+        cy.get('@movimientos').then( (movimientos) => {
+            if(movimientos.length === 0){
+                menuNavTC.irVentanaHistoricos();
+                validacionHistoricos = true;
+                historicoPage.limpiarHistorial();
+                //cy.wait(2000);
+                historicoPage.obtenerTransacciones();    
+            }
+        });
+        cy.then( () => {
+            cy.wrap(historicoPage.transaccionesEncontradas).as('historicos');
+        });
+
+        cy.get('@historicos').then( (historicos) => {
+            cy.log(`Cantidad de datos encontrados ${historicos.length}`);
+        });
         
         cy.wait(1000);
         cy.salirDeTC();

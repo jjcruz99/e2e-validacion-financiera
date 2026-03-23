@@ -6,31 +6,28 @@ Cypress.Commands.add('visualizarProductoPorBIN', (bin) => {
     .click();
 });
 
-Cypress.Commands.add('avanzarRegistrostabla', ()  => {
 
-  const  paginador = {
-      nextBtn: 'a[aria-label="Next Page"]',
-      nextIcon: 'span',
-      nextCon: 'N'
-  }
+Cypress.Commands.add('avanzarRegistrostabla', (idTabla) => {
 
-  return cy.get(paginador.nextBtn).then(($btn) => {
+    const paginador = {
+        // Ahora inyectamos el ID específico en el selector
+        contenedorPaginador : `div[id*="${idTabla}_paginator_bottom"]`,
+        btnSiguiente : 'a.ui-paginator-next'
+    };
     
-    if (!$btn.hasClass('ui-state-disabled')) {
-        // acciones asíncronas
-        cy.wrap($btn)
-          .contains(paginador.nextIcon,paginador.nextCon)
-          .click();   
-        cy.log('➡️ Avanzamos a la siguiente página');
-        
-        return cy.wrap(true); 
-    } else {
-        cy.log('El botón está desactivado, fin de la tabla');
-
-        return cy.wrap(false); 
-    }
-  });
-
+    return cy.get(paginador.contenedorPaginador).find(paginador.btnSiguiente).then(($btn) => {
+      
+        if ($btn.hasClass('ui-state-disabled')) {
+            cy.log('🚫 Se alcanzaron los ultimos registros');
+            return cy.wrap(false);   
+        } 
+        else {    
+            cy.wrap($btn).click({ force: true });            
+            cy.log('➡️ Avanzando a la siguiente página...');
+            cy.wait(1000); 
+            return cy.wrap(true);    
+        }
+    });
 });
 
 

@@ -43,23 +43,50 @@ class HistoricoPages{
                     }
             });
 
-            cy.avanzarRegistrostabla().then( (validacionAvanzar) => {
-
+            cy.avanzarRegistrostabla('idTablaHistorico').then((validacionAvanzar) => {
                 if(validacionAvanzar){
                     this.buscarTransaccionPorFecha(transaccion,fecha);
-                }
-                else{
+                } else {
                     cy.log(`🚫 No existen mas registros para avanzar`);
                 }
             });
 
         });
-
     }
 
+    obtenerTransacciones(){
+         cy.get(this.selectores.tabla).then( ($tbody) => {
+            const filas = $tbody.find('tr');
+            
+            filas.each((i,tr) => {
 
-    obtenerTransacciones(transaccionesABuscar){
-        cy.log(transaccionesABuscar);
+                const fila = Cypress.$(tr).find('td');
+
+                const transaccion = fila.eq(1).text().trim();
+                cy.log(`Transaccion actual: ${transaccion}`);
+
+                if(transaccion === '96' || transaccion === '97') {
+                    this.transaccionesEncontradas.push({
+                        fila : i,
+                        fecha1 : fila.eq(0).text().trim(),
+                        fecha2 : fila.eq(3).text().trim(),
+                        codigoTransaccion : transaccion,
+                        valorTransaccion : fila.eq(5).text().trim(),
+                        tasaInteres : fila.eq(6).text().trim(),
+                        cuotas : fila.eq(7).text().trim()
+                     });
+                }
+            });
+
+            cy.avanzarRegistrostabla('idTablaHistorico').then((validacionAvanzar) => {
+                if(validacionAvanzar){
+                    this.obtenerTransacciones();
+                } else {
+                    cy.log(`🚫 No existen mas registros para avanzar`);
+                }
+            });
+
+        });
     }
 
 }
