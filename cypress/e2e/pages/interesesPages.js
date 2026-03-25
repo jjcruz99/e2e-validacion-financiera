@@ -5,11 +5,7 @@ class InteresesPages {
         this.selectores = {
             // Usamos el selector parcial para evitar errores con los ":"
             tabla: 'tbody[id*="idTablaInteres_data"]',
-            paginador: {
-                nextBtn: 'a[aria-label="Next Page"]',
-                nextIcon: 'span',
-                nextCon: 'N'
-            }, 
+            paginador: 'idTablaInteres', 
             organizadorTable:{
                 cabecera: 'th',
                 titulo:'span',
@@ -53,13 +49,14 @@ class InteresesPages {
             
             if (encontrado) {
                 cy.wrap(this.datosEncontrados);
-            } else {
+            } 
+            else {
                 
-                cy.avanzarRegistrostabla().then((pudoAvanzar) => {
-                    if (pudoAvanzar) {
+                cy.avanzarRegistrostabla(this.selectores.paginador).then((validacionAvanzar) => {
+                    if(validacionAvanzar){
                         this.buscarCodigoDeInteres(codigoEspecifico);
                     } else {
-                        throw new Error(`❌ El código ${codigoEspecifico} no se encontró en la tabla.`);
+                        cy.log(`🚫 No existen mas registros para avanzar`);
                     }
                 });
             }

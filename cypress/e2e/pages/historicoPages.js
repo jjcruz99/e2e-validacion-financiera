@@ -3,7 +3,8 @@ class HistoricoPages{
 
     constructor() {
         this.selectores = {
-            tabla : 'tbody[id*="CRMOH:idTablaHistorico_data"]'
+            tabla : 'tbody[id*="CRMOH:idTablaHistorico_data"]',
+            paginador:'idTablaHistorico'
         };
         this.transaccionesEncontradas = [];
 
@@ -43,7 +44,7 @@ class HistoricoPages{
                     }
             });
 
-            cy.avanzarRegistrostabla('idTablaHistorico').then((validacionAvanzar) => {
+            cy.avanzarRegistrostabla(this.selectores.paginador).then((validacionAvanzar) => {
                 if(validacionAvanzar){
                     this.buscarTransaccionPorFecha(transaccion,fecha);
                 } else {
@@ -63,7 +64,6 @@ class HistoricoPages{
                 const fila = Cypress.$(tr).find('td');
 
                 const transaccion = fila.eq(1).text().trim();
-                cy.log(`Transaccion actual: ${transaccion}`);
 
                 if(transaccion === '96' || transaccion === '97') {
                     this.transaccionesEncontradas.push({
@@ -78,14 +78,13 @@ class HistoricoPages{
                 }
             });
 
-            cy.avanzarRegistrostabla('idTablaHistorico').then((validacionAvanzar) => {
+            cy.avanzarRegistrostabla(this.selectores.paginador).then((validacionAvanzar) => {
                 if(validacionAvanzar){
                     this.obtenerTransacciones();
                 } else {
                     cy.log(`🚫 No existen mas registros para avanzar`);
                 }
             });
-
         });
     }
 

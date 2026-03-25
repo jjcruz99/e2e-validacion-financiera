@@ -3,7 +3,8 @@ class MovimientosPages{
 
     constructor() {
         this.selectores = {
-            tabla : 'tbody[id*="idTablaMovimiento_data"]'      
+            tabla : 'tbody[id*="idTablaMovimiento_data"]',
+            paginador:'idTablaMovimiento'      
         };
         this.datosEncontrados = [];
     }
@@ -39,16 +40,14 @@ class MovimientosPages{
                     }
             });
 
-            cy.avanzarRegistrostabla('idTablaMovimiento').then((validacionAvanzar) => {
+            cy.avanzarRegistrostabla(this.selectores.paginador).then((validacionAvanzar) => {
                 if(validacionAvanzar){
                     this.obtenerTransaccionPorFecha(transaccion,fecha);
                 } else {
                     cy.log(`🚫 No existen mas registros para avanzar`);
                 }
             });
-
         });
-
     }
     
 
@@ -75,16 +74,14 @@ class MovimientosPages{
                 }
             });
 
-            cy.avanzarRegistrostabla('idTablaMovimiento').then((validacionAvanzar) => {
+            cy.avanzarRegistrostabla(this.selectores.paginador).then((validacionAvanzar) => {
                 if(validacionAvanzar){
                     this.obtenerTransacciones();
                 } else {
                     cy.log(`🚫 No existen mas registros para avanzar`);
                 }
             });
-
         });
-    
     }
  
 }

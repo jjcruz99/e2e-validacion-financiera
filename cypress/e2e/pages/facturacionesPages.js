@@ -14,10 +14,7 @@ class FacturacionesPages{
                 titulo:'span',
                 contenido:'Fecha de Facturación'
             },
-            paginador:{
-                contenedorPaginador : 'div[id*="idTablaSaldosMesAnt_paginator_bottom"]',
-                btnSiguiente : 'a.ui-paginator-next'
-            }
+            paginador:'idTablaSaldosMesAnt',               
         };
         this.dataEncontrada=[];
     }
@@ -52,17 +49,15 @@ class FacturacionesPages{
                 }
             });
 
-            this.desplazarTabla().then( (validacionAvanzar) => {
+            cy.avanzarRegistrostabla(this.selectores.paginador).then((validacionAvanzar) => {
                 if(validacionAvanzar){
                     this.buscarFacturacion(fechaFacturacion);
-                }
-                else{
+                } else {
                     cy.log(`🚫 No existen mas registros para avanzar`);
                 }
             });
 
         });
-
     }
 
     organizarTabla(){
@@ -71,25 +66,6 @@ class FacturacionesPages{
             .click();
 
         cy.wait(2000);
-    }
-
-    desplazarTabla(){
-        
-        return cy.get(this.selectores.paginador.contenedorPaginador).find(this.selectores.paginador.btnSiguiente).then(($btn) => {
-            
-            if ($btn.hasClass('ui-state-disabled')) {
-                cy.log('🚫 Se alcanzó la última página de facturaciones');
-                return cy.wrap(false);   
-            } 
-            else {
-                    
-                cy.wrap($btn).click({ force: true });            
-                cy.log('➡️ Avanzando a la siguiente página...');
-                cy.wait(1000); 
-
-                return cy.wrap(true);    
-            }
-        });
     }
 
     extraerDiferidos(){
@@ -111,10 +87,8 @@ class FacturacionesPages{
                     });
 
                     cy.log(`📂 Capturado: ${etiqueta} = ${valor}`);
-
                     cy.get(this.selectores.btnCerrarModal)
-                        .click({ force: true });
-                   
+                        .click({ force: true });                  
                 }
             });
 

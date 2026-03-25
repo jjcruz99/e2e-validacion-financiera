@@ -95,6 +95,11 @@ class CalculadoraDeIntereses {
             console.error("Error al realizar los calculos: " + error);
         }
     }
+
+    validarDiferidos(diferidosFacturados,transacciones){
+        
+    }
+
 }
 
 export const calculadora = new CalculadoraDeIntereses();

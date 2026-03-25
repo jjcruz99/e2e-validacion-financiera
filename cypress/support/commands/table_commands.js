@@ -10,7 +10,7 @@ Cypress.Commands.add('visualizarProductoPorBIN', (bin) => {
 Cypress.Commands.add('avanzarRegistrostabla', (idTabla) => {
 
     const paginador = {
-        // Ahora inyectamos el ID específico en el selector
+        
         contenedorPaginador : `div[id*="${idTabla}_paginator_bottom"]`,
         btnSiguiente : 'a.ui-paginator-next'
     };

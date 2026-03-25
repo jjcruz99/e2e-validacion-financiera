@@ -13,7 +13,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
 
     it('Validar los intereses sobre los diferidos para una tarjeta en mora', () => {
 
-        cy.iniciarSesion(Cypress.env('user_admin') , Cypress.env('pass_admin'));
+        cy.iniciarSesion(Cypress.env('user_7') , Cypress.env('pass_7'));
 
         cy.ingresarATC();
 
@@ -64,7 +64,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.log(`Cantidad de datos encontrados ${historicos.length}`);
         });
         
-        cy.wait(1000);
+        //cy.wait(1000);
         cy.salirDeTC();
 
     });
