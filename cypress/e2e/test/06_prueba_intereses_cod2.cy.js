@@ -36,8 +36,11 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             facturacionesPage.buscarFacturacion(calculadora.restarUnMesFecha(interes.fecha));
         });
 
+        cy.then( () =>{
+            cy.wrap(facturacionesPage.dataEncontrada).as('diferidos')
+        });
+
         menuNavTC.irVentanaMovimientos();
-        //cy.wait(2000);
         movimientosPage.limpiarMovimientos();
         movimientosPage.obtenerTransacciones();
 
@@ -45,14 +48,13 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.wrap(movimientosPage.datosEncontrados).as('movimientos');
         });
 
-        //* Validar las transacciones en los  historicos  si no las encontro en los movimientos
-        let validacionHistoricos = false;
+        //Todo Validar las transacciones en los  historicos  si no las encontro en los movimientos
+        let validacionTransacciones = true;
         cy.get('@movimientos').then( (movimientos) => {
             if(movimientos.length === 0){
                 menuNavTC.irVentanaHistoricos();
-                validacionHistoricos = true;
+                validacionTransacciones = false;
                 historicoPage.limpiarHistorial();
-                //cy.wait(2000);
                 historicoPage.obtenerTransacciones();    
             }
         });
@@ -60,8 +62,14 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.wrap(historicoPage.transaccionesEncontradas).as('historicos');
         });
 
-        cy.get('@historicos').then( (historicos) => {
-            cy.log(`Cantidad de datos encontrados ${historicos.length}`);
+        //Todo validar los diferidos segun las transacciones
+        
+        cy.get('@diferidos').then( (diferidos) => {
+
+            const transacciones = validacionTransacciones ? '@movimientos' : '@historicos'
+
+            calculadora.validarDiferidos(diferidos,transacciones);
+
         });
         
         //cy.wait(1000);

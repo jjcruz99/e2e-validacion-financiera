@@ -97,6 +97,11 @@ class CalculadoraDeIntereses {
     }
 
     validarDiferidos(diferidosFacturados,transacciones){
+
+        const diferidosVen = diferidosFacturados[0].valorDiferido;
+        const fiferidosAva = diferidosFacturados[1].valorDiferido;
+
+        cy.log(`Diferido ventas  ${diferidosVen}`)
         
     }
 

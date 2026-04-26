@@ -143,9 +143,9 @@ describe('Validar calculo de los intereses sobre avances codigo 1 ', () =>{
 
             const valorWeb = calculadora.limpiarDatosNumericos(interes.valor);
             
-            const aliasUsar = validacionMovimientos ? '@movimientos' : '@transaccionesHistoricas';
+            const transaccionesEncontradas = validacionMovimientos ? '@movimientos' : '@transaccionesHistoricas';
 
-            cy.get(aliasUsar).then((transacciones) => {
+            cy.get(transaccionesEncontradas).then((transacciones) => {
                 
                 calculadora.ecuacionGeneral(transacciones);
                    
