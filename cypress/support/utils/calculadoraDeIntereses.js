@@ -5,6 +5,9 @@ class CalculadoraDeIntereses {
     constructor() {
         this.totalIntreses = 0;
         this.detallesintereses = [];
+        this.totalDifVentas=0;
+        this.totalDifAvances=0;
+        this.transaccionesModificadas=[];
     }
 
     limpiarDatosNumericos(valor) {
@@ -96,13 +99,69 @@ class CalculadoraDeIntereses {
         }
     }
 
-    validarDiferidos(diferidosFacturados,transacciones){
+    validarDiferidos(transacciones) {
+        this.totalDifVentas = 0;
+        this.totalDifAvances = 0;
+        try {
+            
+            if (!transacciones || !Array.isArray(transacciones)) {
+                cy.log('⚠️ Los datos de transacciones no son una lista válida.');
+                return;
+            }
 
-        const diferidosVen = diferidosFacturados[0].valorDiferido;
-        const fiferidosAva = diferidosFacturados[1].valorDiferido;
+            let totalVentasCalculado = 0;
+            let totalAvancesCalculado = 0;
 
-        cy.log(`Diferido ventas  ${diferidosVen}`)
-        
+           
+            transacciones.forEach((transaccion, i) => {
+
+                const valor = this.limpiarDatosNumericos(transaccion.valorTransaccion);
+                const nCuotas = this.limpiarDatosNumericos(transaccion.cuotas);
+
+                if (nCuotas > 0) {
+                    const valorCuota = valor / nCuotas;
+
+                    if (transaccion.codigoTransaccion === "96") {
+                        totalVentasCalculado += valorCuota;
+                    } 
+                    else if (transaccion.codigoTransaccion === "97") {
+                        totalAvancesCalculado += valorCuota;
+                    }
+                }
+            });
+
+            this.totalDifVentas = parseFloat(totalVentasCalculado.toFixed(2));
+            this.totalDifAvances = parseFloat(totalAvancesCalculado.toFixed(2));
+
+        } catch (e) {
+            cy.log(`❌ Error en el cálculo: ${e.message}`);
+        }
+    }
+
+    reestructurarTransacciones(transacciones,fecha1Modificada,fecha2Modificada){
+
+        try{
+            this.transaccionesModificadas = [];
+
+            transacciones.forEach((transaccion,i) => {
+                transacciones[i].fecha1 = fecha1Modificada;
+                transacciones[i].fecha2 = fecha2Modificada;
+                const valor = this.limpiarDatosNumericos(transaccion.valorTransaccion);
+                const cuotas = this.limpiarDatosNumericos(transaccion.cuotas);
+
+                if (cuotas > 0) {
+                    const valorDiferido = valor / cuotas;
+
+                    transacciones[i].valorTransaccion = valorDiferido.toFixed(2);
+                }
+
+            });
+
+            this.transaccionesModificadas= transacciones;
+        }
+        catch(e){
+            cy.log(`Error al reestructurar las transacciones. Detalles: ${e}`)
+        }
     }
 
 }

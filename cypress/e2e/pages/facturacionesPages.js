@@ -40,11 +40,11 @@ class FacturacionesPages{
                 const fechaActual = fila.eq(0).text().trim().slice(0,7);
 
                 if(fechaActual === fecha){
-
+                    const fechaFacturacionAnterior = fila.eq(0).text().trim();
                     //* Envolver la fila (tr) para usar comandos de Cypress
                     cy.wrap(tr).find(this.selectores.visualizar).click();
                     cy.log(`Fecha encontrada: ${fechaActual}`);
-                    this.extraerDiferidos();
+                    this.extraerDiferidos(fechaFacturacionAnterior);
                     return false;
                 }
             });
@@ -68,7 +68,7 @@ class FacturacionesPages{
         cy.wait(2000);
     }
 
-    extraerDiferidos(){
+    extraerDiferidos(fechaFacturacion){
 
         cy.get(this.selectores.tablaModal).should('be.visible').then(($tabla) => {
             
@@ -83,7 +83,8 @@ class FacturacionesPages{
 
                     this.dataEncontrada.push({
                         concepto:etiqueta,
-                        valorDiferido:valor
+                        valorDiferido:valor,
+                        fechaFacturacion:fechaFacturacion
                     });
 
                     cy.log(`📂 Capturado: ${etiqueta} = ${valor}`);

@@ -66,14 +66,47 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
         
         cy.get('@diferidos').then( (diferidos) => {
 
-            const transacciones = validacionTransacciones ? '@movimientos' : '@historicos'
+            const transacciones = validacionTransacciones ? '@movimientos' : '@historicos';
 
-            calculadora.validarDiferidos(diferidos,transacciones);
+                cy.get(transacciones).then((totalTransacciones) => {
 
-        });
+                    calculadora.validarDiferidos(totalTransacciones);
+                    const valorWebVentas = calculadora.limpiarDatosNumericos( diferidos[0].valorDiferido );
+                    const valorWebAvances = calculadora.limpiarDatosNumericos( diferidos[1].valorDiferido );
+
+                    expect(valorWebVentas, `Web: ${valorWebVentas} | Calculado: ${calculadora.totalDifVentas}`)
+                    .to.be.closeTo(calculadora.totalDifVentas, 0.01);
+
+                    expect(valorWebAvances, `Web: ${valorWebAvances} | Calculado: ${calculadora.totalDifAvances}`)
+                    .to.be.closeTo(calculadora.totalDifAvances, 0.01);
+
+                    cy.get('@intereses').then((intereses) =>{
+
+                        cy.addTestContext('Valor de los intereses codigo 2: ' + intereses.valor);
+
+                        calculadora.reestructurarTransacciones(totalTransacciones, diferidos[0].fechaFacturacion, '2025/02/15');
+
+                        cy.log(calculadora.transaccionesModificadas.length);
+                        calculadora.ecuacionGeneral(calculadora.transaccionesModificadas);
+                        const cod2 = calculadora.limpiarDatosNumericos(intereses.valor);
+                        const interesesCalculados = calculadora.totalIntreses;
+                        let diferencia = interesesCalculados - cod2;
+
+                        cy.log(`Intereses calculados ${interesesCalculados}`);
+
+                        expect(interesesCalculados, `Comparación Final (Web: ${cod2} | Calculado: ${interesesCalculados} | Dif: ${diferencia.toFixed(2)})`)
+                        .to.be.closeTo(cod2, 0.02);
+
+                    });
+                });
+
+        }); 
         
-        //cy.wait(1000);
         cy.salirDeTC();
+
+        cy.once('test:after:run', (test) => {
+            cy.addTestContext( { test }, `screenshots/${Cypress.spec.name}/codigos_intereses/Codigo_2.png`);
+        });
 
     });
 
