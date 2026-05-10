@@ -39,7 +39,7 @@ declare global {
       visualizarProductoPorBIN(bin: string): Chainable<Element>;
 
         /**
-       * Hace clic en el boton siguiente de las tablas intreses,historicos.
+       * Hace clic en el boton siguiente de las tablas intreses,historicos,movimientos y facturaciones.
        * @example cy.avanzarRegistrostabla();
        */
       avanzarRegistrostabla(): Chainable<Element>;     
@@ -49,6 +49,12 @@ declare global {
        * @example cy.buscarPorProducto('44818500','50128822')
        */
       buscarPorProducto(bin: string,producto:string): Chainable<Element>;
+
+        /**
+       * Retorna los avances y ventas encontrados CRMOV o en CRMOH.
+       * @example cy.obtenerTransacciones()
+       */
+      obtenerTransacciones(): Chainable<Element>;
 
       /**
        * Abre un módulo del menú de PrimeFaces manejando el estado oculto.

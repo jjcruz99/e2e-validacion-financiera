@@ -28,6 +28,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.wrap(interesesPage.datosEncontrados).as('intereses');
         });
 
+        //Todo obtener los diferidos en una facturacion especifica
         cy.get('@intereses').then( (interes) => {
             cy.log(`Valor de los intereses encontrados : ${interes.valor} en ${interes.fecha}`);
 
@@ -93,6 +94,8 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
                         let diferencia = interesesCalculados - cod2;
 
                         cy.log(`Intereses calculados ${interesesCalculados}`);
+
+                        cy.addTestContext(`Facturacion: ${intereses.fecha} | Valor Web: ${intereses.valor} | Calculado: ${interesesCalculados} | Dif: ${diferencia}`);
 
                         expect(interesesCalculados, `Comparación Final (Web: ${cod2} | Calculado: ${interesesCalculados} | Dif: ${diferencia.toFixed(2)})`)
                         .to.be.closeTo(cod2, 0.02);

@@ -27,13 +27,14 @@ aut_validacion_intereses/
 │   │
 │   ├── reports/
 │   │   ├── screenshots/ 
+│   │   |    ├── 01_prueba_inicial.cy.js
 │   │   |    ├── 02_prueba_login.cy.js
 │   │   |    ├── 03_prueba_consultar_cliente.cy.js
 │   │   |    ├── 04_prueba_interes_cod1.cy.js
 │   │   |    └── 05_prueba_intereses_cod4.cy.js
 │   │   |    └── 06_prueba_intereses_cod2.cy.js
-│   │   |    └── codigos_interes
-│   │   |    └── login
+│   │   |    └── 07_prueba_intereses_cod5.cy.js
+│   │   |    └── calculadora.cy.js
 │   │   |
 │   │   └── index.html  
 │   │
@@ -42,6 +43,7 @@ aut_validacion_intereses/
 │       │   ├── auth_commands.js
 │       │   ├── customer_commands.js
 │       │   └── table_commands.js
+│       │   └── transactions_commands.js
 │       │
 │       ├── utils/                   
 │       │     └── calculadoraDeIntereses.js

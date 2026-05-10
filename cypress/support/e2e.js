@@ -17,4 +17,5 @@
 import './commands/auth_commands';
 import './commands/customer_commands';
 import './commands/table_commands';
+import './commands/transactions_commands'
 import 'cypress-mochawesome-reporter/register';
