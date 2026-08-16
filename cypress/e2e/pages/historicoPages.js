@@ -48,7 +48,8 @@ class HistoricoPages{
                 if(validacionAvanzar){
                     this.buscarTransaccionPorFecha(transaccion,fecha);
                 } else {
-                    cy.log(`🚫 No existen mas registros para avanzar`);
+                    cy.log(`🚫 No existen mas registros en los historicos para avanzar`);
+                    cy.log(`💡 Total de trasnsacciones en los historicos = ${this.transaccionesEncontradas.length}`);
                 }
             });
 
@@ -82,7 +83,8 @@ class HistoricoPages{
                 if(validacionAvanzar){
                     this.obtenerTransacciones();
                 } else {
-                    cy.log(`🚫 No existen mas registros para avanzar`);
+                    cy.log(`🚫 No existen mas registros en los historicos para avanzar`);
+                    cy.log(`💡 Total de trasnsacciones en los historicos = ${this.transaccionesEncontradas.length}`);
                 }
             });
         });

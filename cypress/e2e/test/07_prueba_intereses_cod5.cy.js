@@ -32,11 +32,14 @@ describe('Validacion de los intereses sobre los diferidos pendientes', () =>{
             facturacionesPage.buscarFacturacion(calculadora.restarUnMesFecha(intereses.fecha));
         });
         cy.then( () =>{
-            cy.wrap(facturacionesPage.dataEncontrada).as('diferidos')
+            cy.wrap(facturacionesPage.dataEncontrada).as('diferidos');
         });
 
+        //Todo Obtener los datos de las transacciones
         cy.obtenerTransacciones();
-
+        cy.get('@transaccionesFinales').then((transacciones) => {
+             expect(transacciones.length).to.be.greaterThan(0);             
+        });
 
         cy.salirDeTC();
     })

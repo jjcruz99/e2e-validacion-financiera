@@ -76,6 +76,7 @@ class CalculadoraDeIntereses {
             if (!transacciones || transacciones.length === 0) return;
 
             transacciones.forEach((transaccion, i) => {
+                
                 let valor = this.limpiarDatosNumericos(transaccion.valorTransaccion);
                 let dias = this.obtenerDiferenciaDeDias(transaccion.fecha1, transaccion.fecha2);
                 let tasa = this.tasaEnDecimales(transaccion.tasaInteres);

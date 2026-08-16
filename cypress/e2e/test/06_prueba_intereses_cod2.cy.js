@@ -28,7 +28,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.wrap(interesesPage.datosEncontrados).as('intereses');
         });
 
-        //Todo obtener los diferidos en una facturacion especifica
+        //Todo obtener los diferidos en una facturacion especificas
         cy.get('@intereses').then( (interes) => {
             cy.log(`Valor de los intereses encontrados : ${interes.valor} en ${interes.fecha}`);
 
@@ -41,6 +41,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.wrap(facturacionesPage.dataEncontrada).as('diferidos')
         });
 
+        //Todo buscar las transacciones
         menuNavTC.irVentanaMovimientos();
         movimientosPage.limpiarMovimientos();
         movimientosPage.obtenerTransacciones();
@@ -63,7 +64,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
             cy.wrap(historicoPage.transaccionesEncontradas).as('historicos');
         });
 
-        //Todo validar los diferidos segun las transacciones
+        //Todo validar el interes segun las transacciones
         
         cy.get('@diferidos').then( (diferidos) => {
 
@@ -85,7 +86,7 @@ describe("Validacion de los intereses codigo 2 sobre los diferidos", ()=>{
 
                         cy.addTestContext('Valor de los intereses codigo 2: ' + intereses.valor);
 
-                        calculadora.reestructurarTransacciones(totalTransacciones, diferidos[0].fechaFacturacion, '2025/02/15');
+                        calculadora.reestructurarTransacciones(totalTransacciones, diferidos[0].fechaFacturacion, '2027/05/20');
 
                         cy.log(calculadora.transaccionesModificadas.length);
                         calculadora.ecuacionGeneral(calculadora.transaccionesModificadas);

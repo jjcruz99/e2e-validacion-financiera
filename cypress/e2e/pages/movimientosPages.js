@@ -44,7 +44,8 @@ class MovimientosPages{
                 if(validacionAvanzar){
                     this.obtenerTransaccionPorFecha(transaccion,fecha);
                 } else {
-                    cy.log(`🚫 No existen mas registros para avanzar`);
+                    cy.log(`🚫 No existen mas registros en los movimientos para avanzar`);
+                    cy.log(`💡 Total de trasnsacciones en los movimientos = ${this.datosEncontrados.length}`);
                 }
             });
         });
@@ -78,7 +79,8 @@ class MovimientosPages{
                 if(validacionAvanzar){
                     this.obtenerTransacciones();
                 } else {
-                    cy.log(`🚫 No existen mas registros para avanzar`);
+                    cy.log(`🚫 No existen mas registros en los movimientos para avanzar`);
+                    cy.log(`💡 Total de trasnsacciones en los movimientos = ${this.datosEncontrados.length}`);
                 }
             });
         });
